@@ -15,6 +15,10 @@
 		3F222AE124A52A56005AA22C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F222AB624A52A55005AA22C /* ContentView.swift */; };
 		3F222AE224A52A56005AA22C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F222AB724A52A56005AA22C /* Assets.xcassets */; };
 		3F222AE324A52A56005AA22C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F222AB724A52A56005AA22C /* Assets.xcassets */; };
+		3F222AF324A530B6005AA22C /* CoViDtracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F222AF224A530B6005AA22C /* CoViDtracker.swift */; };
+		3F222AF424A530B6005AA22C /* CoViDtracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F222AF224A530B6005AA22C /* CoViDtracker.swift */; };
+		3F222AF624A539D6005AA22C /* CountryDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F222AF524A539D6005AA22C /* CountryDetail.swift */; };
+		3F222AF724A539D6005AA22C /* CountryDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F222AF524A539D6005AA22C /* CountryDetail.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +53,9 @@
 		3F222AD724A52A56005AA22C /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F222ADB24A52A56005AA22C /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		3F222ADD24A52A56005AA22C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3F222AF224A530B6005AA22C /* CoViDtracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoViDtracker.swift; sourceTree = "<group>"; };
+		3F222AF524A539D6005AA22C /* CountryDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryDetail.swift; sourceTree = "<group>"; };
+		3F222AF824A53FB1005AA22C /* CoViDtracker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CoViDtracker.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +107,8 @@
 			children = (
 				3F222AB524A52A55005AA22C /* CoViDtrackerApp.swift */,
 				3F222AB624A52A55005AA22C /* ContentView.swift */,
+				3F222AF524A539D6005AA22C /* CountryDetail.swift */,
+				3F222AF224A530B6005AA22C /* CoViDtracker.swift */,
 				3F222AB724A52A56005AA22C /* Assets.xcassets */,
 			);
 			path = Shared;
@@ -119,6 +128,7 @@
 		3F222ABE24A52A56005AA22C /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				3F222AF824A53FB1005AA22C /* CoViDtracker.entitlements */,
 				3F222ABF24A52A56005AA22C /* Info.plist */,
 			);
 			path = iOS;
@@ -309,7 +319,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F222AE024A52A56005AA22C /* ContentView.swift in Sources */,
+				3F222AF624A539D6005AA22C /* CountryDetail.swift in Sources */,
 				3F222ADE24A52A56005AA22C /* CoViDtrackerApp.swift in Sources */,
+				3F222AF324A530B6005AA22C /* CoViDtracker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,7 +330,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F222AE124A52A56005AA22C /* ContentView.swift in Sources */,
+				3F222AF724A539D6005AA22C /* CountryDetail.swift in Sources */,
 				3F222ADF24A52A56005AA22C /* CoViDtrackerApp.swift in Sources */,
+				3F222AF424A530B6005AA22C /* CoViDtracker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -470,6 +484,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = iOS/CoViDtracker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TXPQYU7TF9;
 				ENABLE_PREVIEWS = YES;
@@ -482,6 +497,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = japneetsingh.iitd.2020.CoViDtracker;
 				PRODUCT_NAME = CoViDtracker;
 				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -492,6 +508,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = iOS/CoViDtracker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TXPQYU7TF9;
 				ENABLE_PREVIEWS = YES;
@@ -504,6 +521,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = japneetsingh.iitd.2020.CoViDtracker;
 				PRODUCT_NAME = CoViDtracker;
 				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
