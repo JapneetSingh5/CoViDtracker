@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CountryDetail: View {
-    var country: Country
+    var country: Result
     
     var body: some View {
             
@@ -17,7 +17,7 @@ struct CountryDetail: View {
                     Spacer()
                     VStack {
                         Text("Confirmed Cases").font(.largeTitle).fontWeight(.bold)
-                        Text("\(country.confirmedCount)").font(.title)
+                        Text("\(country.confirmed)").font(.title)
                     }
                     Spacer()
                 }
@@ -26,7 +26,7 @@ struct CountryDetail: View {
                     Spacer()
                     VStack {
                         Text("Recovered").font(.largeTitle).fontWeight(.bold)
-                        country.recoveredCount == 0 ? Text(" N/A").font(.title) : Text(" \(country.recoveredCount)").font(.title)
+                        country.recovered == 0 ? Text(" N/A").font(.title) : Text(" \(country.recovered)").font(.title)
                     }
                     Spacer()
                 }.padding(.vertical).background(Color.green)
@@ -34,12 +34,12 @@ struct CountryDetail: View {
                     Spacer()
                     VStack {
                         Text("Deceased").font(.largeTitle).fontWeight(.bold)
-                        Text("\(country.deceasedCount)").font(.title)
+                        Text("\(country.deaths)").font(.title)
                     }
                     Spacer()
                 }.padding(.vertical).background(Color.red)
             }
-            .navigationTitle(country.thumbnail + " " + country.name).navigationBarTitleDisplayMode(.inline)
+            .navigationTitle( country.country_region).navigationBarTitleDisplayMode(.inline)
             
         
         
@@ -49,7 +49,7 @@ struct CountryDetail: View {
 struct CountryDetail_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView{
-        CountryDetail(country: testData[0])
+        Text("blank space")
         }
     }
 }
