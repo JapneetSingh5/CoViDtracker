@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F1E4B3024C6CD800007564C /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F1E4B2F24C6CD800007564C /* Launch Screen.storyboard */; };
 		3F222AD124A52A56005AA22C /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F222AD024A52A56005AA22C /* Tests_iOS.swift */; };
 		3F222ADC24A52A56005AA22C /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F222ADB24A52A56005AA22C /* Tests_macOS.swift */; };
 		3F222ADE24A52A56005AA22C /* CoViDtrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F222AB524A52A55005AA22C /* CoViDtrackerApp.swift */; };
@@ -39,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3F1E4B2F24C6CD800007564C /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		3F222AB524A52A55005AA22C /* CoViDtrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoViDtrackerApp.swift; sourceTree = "<group>"; };
 		3F222AB624A52A55005AA22C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		3F222AB724A52A56005AA22C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 		3F222AAF24A52A55005AA22C = {
 			isa = PBXGroup;
 			children = (
+				3F1E4B2F24C6CD800007564C /* Launch Screen.storyboard */,
 				3F222AB424A52A55005AA22C /* Shared */,
 				3F222ABE24A52A56005AA22C /* iOS */,
 				3F222AC524A52A56005AA22C /* macOS */,
@@ -285,6 +288,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F1E4B3024C6CD800007564C /* Launch Screen.storyboard in Resources */,
 				3F222AE224A52A56005AA22C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -485,6 +489,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = iOS/CoViDtracker.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TXPQYU7TF9;
 				ENABLE_PREVIEWS = YES;
@@ -496,10 +501,11 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = japneetsingh.iitd.2020.CoViDtracker;
 				PRODUCT_NAME = CoViDtracker;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
-				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,6";
 			};
 			name = Debug;
 		};
@@ -509,6 +515,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = iOS/CoViDtracker.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TXPQYU7TF9;
 				ENABLE_PREVIEWS = YES;
@@ -520,10 +527,11 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = japneetsingh.iitd.2020.CoViDtracker;
 				PRODUCT_NAME = CoViDtracker;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
-				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,6";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

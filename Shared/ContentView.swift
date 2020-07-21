@@ -8,21 +8,33 @@
 import SwiftUI
 
 struct Response: Codable {
-    var results: [Result]
+    var Countries: [Result]
 }
 
 struct Result: Codable {
-    var country_region : String
-    var confirmed: Int
-    var recovered: Int
-    var deaths: Int
+    var Country : String
+    var TotalConfirmed: Int
+    var TotalRecovered: Int
+    var TotalDeaths: Int
+    var NewConfirmed: Int
+    var NewRecovered: Int
+    var NewDeaths: Int
+    var CountryCode: String
+    var Flag: String{
+        let base : UInt32 = 127397
+        var s = ""
+        for v in CountryCode.uppercased().unicodeScalars {
+            s.unicodeScalars.append(UnicodeScalar(base + v.value)!)
+        }
+        return s
+    }
 }
 
 struct ContentView: View {
-    @State private var results = [Result]()
+    @State private var Countries = [Result]()
     
     func loadData() {
-        guard let url = URL(string: "https://2019ncov.asia/api/country_region") else {
+        guard let url = URL(string: "https://api.covid19api.com/summary") else {
             print("Invalid URL")
             return
         }
@@ -33,8 +45,8 @@ struct ContentView: View {
                     // we have good data – go back to the main thread
                     DispatchQueue.main.async {
                         // update our UI
-                        self.results = decodedResponse.results.sorted{
-                            $0.confirmed > $1.confirmed
+                        self.Countries = decodedResponse.Countries.sorted{
+                            $0.TotalConfirmed > $1.TotalConfirmed
                         }
                     }
 
@@ -49,7 +61,7 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView{
-            List(results, id: \.country_region) { item in
+            List(Countries, id: \.Country) { item in
                 CountryCell(country: item).navigationTitle("🦠 CoViDtracker")
                 }.onAppear(perform: loadData)
             }
@@ -69,17 +81,17 @@ struct CountryCell: View {
     var body: some View {
         NavigationLink(destination: CountryDetail(country: country))
         {
-            Text("🏴").font(/*@START_MENU_TOKEN@*/.largeTitle/*@END_MENU_TOKEN@*/)
+            Text(country.Flag).font(/*@START_MENU_TOKEN@*/.largeTitle/*@END_MENU_TOKEN@*/)
             VStack(alignment: .leading) {
                 HStack(alignment: .top) {
-                    Text(country.country_region).font(/*@START_MENU_TOKEN@*/.title2/*@END_MENU_TOKEN@*/).fontWeight(.semibold)
+                    Text(country.Country).font(/*@START_MENU_TOKEN@*/.title2/*@END_MENU_TOKEN@*/).fontWeight(.semibold)
                 }
                 
                 HStack(alignment: .bottom) {
                     
-                    Text("🟡 \(country.confirmed)").font(.footnote)
-                    country.recovered == 0 ? Text("🟢 N/A").font(.footnote) : Text("🟢 \(country.recovered)").font(/*@START_MENU_TOKEN@*/.footnote/*@END_MENU_TOKEN@*/)
-                    Text("🔴 \(country.deaths)").font(.footnote)
+                    Text("🟡 \(country.TotalConfirmed)").font(.footnote)
+                    country.TotalRecovered == 0 ? Text("🟢 N/A").font(.footnote) : Text("🟢 \(country.TotalRecovered)").font(/*@START_MENU_TOKEN@*/.footnote/*@END_MENU_TOKEN@*/)
+                    Text("🔴 \(country.TotalDeaths)").font(.footnote)
                     
                     
                 }
