@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftUIRefresh
 
 struct Response: Codable {
     var Countries: [Result]
@@ -32,6 +33,7 @@ struct Result: Codable {
 
 struct ContentView: View {
     @State private var Countries = [Result]()
+    @State private var isShowing = false
     
     func loadData() {
         guard let url = URL(string: "https://api.covid19api.com/summary") else {
@@ -63,10 +65,13 @@ struct ContentView: View {
         NavigationView{
             List(Countries, id: \.Country) { item in
                 CountryCell(country: item).navigationTitle("🦠 CoViDtracker")
-                }.onAppear(perform: loadData)
+            }.onAppear(perform: loadData).pullToRefresh(isShowing: $isShowing) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        self.isShowing = false
+                    }
             }
-        
         }
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {
