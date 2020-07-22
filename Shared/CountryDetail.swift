@@ -24,7 +24,19 @@ struct CountryDetail: View {
                     }
                     Spacer()
                 }
-                .padding(.vertical).background(Color.yellow)
+                .padding(.vertical).background(Color.orange)
+                HStack {
+                    Spacer()
+                    VStack {
+                        HStack {
+                            Text("Active").font(.largeTitle).fontWeight(.bold)
+                            Text("↑\(country.NewConfirmed - country.NewRecovered)")
+                        }
+                        Text("\(country.TotalConfirmed - country.TotalDeaths - country.TotalRecovered)").font(.title)
+                    }
+                    Spacer()
+                }
+                .padding(.vertical).background(Color.blue)
                 HStack {
                     Spacer()
                     VStack {

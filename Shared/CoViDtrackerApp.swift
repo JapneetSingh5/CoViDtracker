@@ -11,13 +11,13 @@ import SwiftUI
 struct CoViDtrackerApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(Global: testData[1], IndiaDetails: testData[0])
         }
     }
 }
 
 struct CoViDtrackerApp_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(Global: testData[1], IndiaDetails: testData[0])
     }
 }
