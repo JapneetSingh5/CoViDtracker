@@ -6,13 +6,15 @@
 //
 
 import SwiftUI
+import SwiftUIRefresh
 
 struct CountryDetail: View {
     var country: Result
+    @State private var isShowing = false
     
     var body: some View {
             
-            VStack {
+            List {
                 HStack {
                     Spacer()
                     VStack {
@@ -24,7 +26,7 @@ struct CountryDetail: View {
                     }
                     Spacer()
                 }
-                .padding(.vertical).background(Color.orange)
+                .padding(.vertical).background(Color.orange).cornerRadius(15).padding(.horizontal, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
                 HStack {
                     Spacer()
                     VStack {
@@ -36,7 +38,7 @@ struct CountryDetail: View {
                     }
                     Spacer()
                 }
-                .padding(.vertical).background(Color.blue)
+                .padding(.vertical).background(Color.blue).cornerRadius(15).padding(.horizontal, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
                 HStack {
                     Spacer()
                     VStack {
@@ -48,7 +50,7 @@ struct CountryDetail: View {
                         
                     }
                     Spacer()
-                }.padding(.vertical).background(Color.green)
+                }.padding(.vertical).background(Color.green).cornerRadius(15).padding(.horizontal, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
                 HStack{
                     Spacer()
                     VStack {
@@ -56,7 +58,7 @@ struct CountryDetail: View {
                         Text("\((Double(country.TotalRecovered) / Double(country.TotalConfirmed) * 100), specifier: "%.2f")%").font(.title2)
                     }
                     Spacer()
-                }.padding(.vertical).background(Color.green.opacity(0.9))
+                }.padding(.vertical).background(Color.green.opacity(0.9)).cornerRadius(15).padding(.horizontal, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
                 HStack {
                     Spacer()
                     VStack {
@@ -67,7 +69,7 @@ struct CountryDetail: View {
                         Text("\(country.TotalDeaths)").font(.title)
                     }
                     Spacer()
-                }.padding(.vertical).background(Color.red)
+                }.padding(.vertical).background(Color.red).cornerRadius(15).padding(.horizontal, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
                 HStack{
                     Spacer()
                     VStack {
@@ -75,7 +77,12 @@ struct CountryDetail: View {
                         Text("\((Double(country.TotalDeaths) / Double(country.TotalConfirmed) * 100), specifier: "%.2f")%").font(.title2)
                     }
                     Spacer()
-                }.padding(.vertical).background(Color.red.opacity(0.9))
+                }.padding(.vertical).background(Color.red.opacity(0.9)).cornerRadius(15).padding(.horizontal, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+            }
+            .pullToRefresh(isShowing: $isShowing) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self.isShowing = false
+                }
             }
             .navigationTitle("\(country.Flag)\(country.Country)")
             
