@@ -21,6 +21,11 @@
 		3F222AF624A539D6005AA22C /* CountryDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F222AF524A539D6005AA22C /* CountryDetail.swift */; };
 		3F222AF724A539D6005AA22C /* CountryDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F222AF524A539D6005AA22C /* CountryDetail.swift */; };
 		3F526DFE24C791FD002DD13C /* SwiftUIRefresh in Frameworks */ = {isa = PBXBuildFile; productRef = 3F526DFD24C791FD002DD13C /* SwiftUIRefresh */; };
+		3FAAEC1224CB4C8F00131271 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FAAEC1124CB4C8F00131271 /* WidgetKit.framework */; };
+		3FAAEC1424CB4C8F00131271 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FAAEC1324CB4C8F00131271 /* SwiftUI.framework */; };
+		3FAAEC1724CB4C8F00131271 /* CoViDtracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FAAEC1624CB4C8F00131271 /* CoViDtracker.swift */; };
+		3FAAEC1924CB4C9000131271 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3FAAEC1824CB4C9000131271 /* Assets.xcassets */; };
+		3FAAEC1D24CB4C9000131271 /* CoViDtrackerExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 3FAAEC0F24CB4C8F00131271 /* CoViDtrackerExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +43,28 @@
 			remoteGlobalIDString = 3F222AC324A52A56005AA22C;
 			remoteInfo = macOS;
 		};
+		3FAAEC1B24CB4C9000131271 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3F222AB024A52A55005AA22C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3FAAEC0E24CB4C8F00131271;
+			remoteInfo = CoViDtrackerExtension;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		3FAAEC1F24CB4C9000131271 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				3FAAEC1D24CB4C9000131271 /* CoViDtrackerExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		3F1E4B2F24C6CD800007564C /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
@@ -59,6 +85,13 @@
 		3F222AF224A530B6005AA22C /* CoViDtracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoViDtracker.swift; sourceTree = "<group>"; };
 		3F222AF524A539D6005AA22C /* CountryDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryDetail.swift; sourceTree = "<group>"; };
 		3F222AF824A53FB1005AA22C /* CoViDtracker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CoViDtracker.entitlements; sourceTree = "<group>"; };
+		3FAAEC0F24CB4C8F00131271 /* CoViDtrackerExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CoViDtrackerExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		3FAAEC1124CB4C8F00131271 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		3FAAEC1324CB4C8F00131271 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		3FAAEC1624CB4C8F00131271 /* CoViDtracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoViDtracker.swift; sourceTree = "<group>"; };
+		3FAAEC1824CB4C9000131271 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3FAAEC1A24CB4C9000131271 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3FAAEC1E24CB4C9000131271 /* CoViDtrackerExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CoViDtrackerExtension.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,18 +124,30 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3FAAEC0C24CB4C8F00131271 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3FAAEC1424CB4C8F00131271 /* SwiftUI.framework in Frameworks */,
+				3FAAEC1224CB4C8F00131271 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		3F222AAF24A52A55005AA22C = {
 			isa = PBXGroup;
 			children = (
+				3FAAEC1E24CB4C9000131271 /* CoViDtrackerExtension.entitlements */,
 				3F1E4B2F24C6CD800007564C /* Launch Screen.storyboard */,
 				3F222AB424A52A55005AA22C /* Shared */,
 				3F222ABE24A52A56005AA22C /* iOS */,
 				3F222AC524A52A56005AA22C /* macOS */,
 				3F222ACF24A52A56005AA22C /* Tests iOS */,
 				3F222ADA24A52A56005AA22C /* Tests macOS */,
+				3FAAEC1524CB4C8F00131271 /* CoViDtracker */,
+				3FAAEC1024CB4C8F00131271 /* Frameworks */,
 				3F222ABD24A52A56005AA22C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -126,6 +171,7 @@
 				3F222AC424A52A56005AA22C /* CoViDtracker.app */,
 				3F222ACC24A52A56005AA22C /* Tests iOS.xctest */,
 				3F222AD724A52A56005AA22C /* Tests macOS.xctest */,
+				3FAAEC0F24CB4C8F00131271 /* CoViDtrackerExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -166,6 +212,25 @@
 			path = "Tests macOS";
 			sourceTree = "<group>";
 		};
+		3FAAEC1024CB4C8F00131271 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3FAAEC1124CB4C8F00131271 /* WidgetKit.framework */,
+				3FAAEC1324CB4C8F00131271 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3FAAEC1524CB4C8F00131271 /* CoViDtracker */ = {
+			isa = PBXGroup;
+			children = (
+				3FAAEC1624CB4C8F00131271 /* CoViDtracker.swift */,
+				3FAAEC1824CB4C9000131271 /* Assets.xcassets */,
+				3FAAEC1A24CB4C9000131271 /* Info.plist */,
+			);
+			path = CoViDtracker;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -176,10 +241,12 @@
 				3F222AB824A52A56005AA22C /* Sources */,
 				3F222AB924A52A56005AA22C /* Frameworks */,
 				3F222ABA24A52A56005AA22C /* Resources */,
+				3FAAEC1F24CB4C9000131271 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				3FAAEC1C24CB4C9000131271 /* PBXTargetDependency */,
 			);
 			name = iOS;
 			packageProductDependencies = (
@@ -242,6 +309,23 @@
 			productReference = 3F222AD724A52A56005AA22C /* Tests macOS.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		3FAAEC0E24CB4C8F00131271 /* CoViDtrackerExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3FAAEC2224CB4C9000131271 /* Build configuration list for PBXNativeTarget "CoViDtrackerExtension" */;
+			buildPhases = (
+				3FAAEC0B24CB4C8F00131271 /* Sources */,
+				3FAAEC0C24CB4C8F00131271 /* Frameworks */,
+				3FAAEC0D24CB4C8F00131271 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CoViDtrackerExtension;
+			productName = CoViDtrackerExtension;
+			productReference = 3FAAEC0F24CB4C8F00131271 /* CoViDtrackerExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -265,6 +349,9 @@
 						CreatedOnToolsVersion = 12.0;
 						TestTargetID = 3F222AC324A52A56005AA22C;
 					};
+					3FAAEC0E24CB4C8F00131271 = {
+						CreatedOnToolsVersion = 12.0;
+					};
 				};
 			};
 			buildConfigurationList = 3F222AB324A52A55005AA22C /* Build configuration list for PBXProject "CoViDtracker" */;
@@ -287,6 +374,7 @@
 				3F222AC324A52A56005AA22C /* macOS */,
 				3F222ACB24A52A56005AA22C /* Tests iOS */,
 				3F222AD624A52A56005AA22C /* Tests macOS */,
+				3FAAEC0E24CB4C8F00131271 /* CoViDtrackerExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -320,6 +408,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3FAAEC0D24CB4C8F00131271 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3FAAEC1924CB4C9000131271 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -364,6 +460,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3FAAEC0B24CB4C8F00131271 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3FAAEC1724CB4C8F00131271 /* CoViDtracker.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -376,6 +480,11 @@
 			isa = PBXTargetDependency;
 			target = 3F222AC324A52A56005AA22C /* macOS */;
 			targetProxy = 3F222AD824A52A56005AA22C /* PBXContainerItemProxy */;
+		};
+		3FAAEC1C24CB4C9000131271 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3FAAEC0E24CB4C8F00131271 /* CoViDtrackerExtension */;
+			targetProxy = 3FAAEC1B24CB4C9000131271 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -494,6 +603,7 @@
 		3F222AE724A52A56005AA22C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = iOS/CoViDtracker.entitlements;
@@ -520,6 +630,7 @@
 		3F222AE824A52A56005AA22C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = iOS/CoViDtracker.entitlements;
@@ -681,6 +792,59 @@
 			};
 			name = Release;
 		};
+		3FAAEC2024CB4C9000131271 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = CoViDtrackerExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = TXPQYU7TF9;
+				INFOPLIST_FILE = CoViDtracker/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = japneetsingh.iitd.2020.CoViDtracker.CoViDtracker;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3FAAEC2124CB4C9000131271 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = CoViDtrackerExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = TXPQYU7TF9;
+				INFOPLIST_FILE = CoViDtracker/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = japneetsingh.iitd.2020.CoViDtracker.CoViDtracker;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -725,6 +889,15 @@
 			buildConfigurations = (
 				3F222AF024A52A56005AA22C /* Debug */,
 				3F222AF124A52A56005AA22C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3FAAEC2224CB4C9000131271 /* Build configuration list for PBXNativeTarget "CoViDtrackerExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3FAAEC2024CB4C9000131271 /* Debug */,
+				3FAAEC2124CB4C9000131271 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -64,7 +64,7 @@ struct ContentView: View {
     @State var India = [IndiaStates]()
     @State private var isShowing = false
     @State var IndiaDetails: Result
-    @State private var customTab: String = "Custom"
+    @State private var customTab: String = "Custom Name"
     @State private var enableCustom: Bool = false
     @State private var enableNews: Bool = true
     @State var customTabIcon: Int = 0
@@ -159,45 +159,7 @@ struct ContentView: View {
         TabView {
             
         NavigationView{
-            List{
-            Section(header: Text("Overview")){
-                HStack {
-                    Text("CONFIRMED").foregroundColor(.orange).fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-                    Text("\(Global.TotalConfirmed)")
-                    Text("↑ \(Global.NewConfirmed)").foregroundColor(.orange).fontWeight(.medium)
-                }
-                HStack {
-                    Text("ACTIVE").foregroundColor(.blue).fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-                    Text("\(Global.TotalConfirmed - Global.TotalRecovered)")
-                    Text("↑ \(Global.NewConfirmed - Global.NewRecovered)").foregroundColor(.blue).fontWeight(.medium)
-                }
-                HStack {
-                    Text("RECOVERED").foregroundColor(.green).fontWeight(.bold)
-                    Text("\(Global.TotalRecovered)")
-                    Text("↑ \(Global.NewRecovered)").foregroundColor(.green).fontWeight(.medium)
-                }
-                HStack {
-                    Text("RECOVERY RATE").foregroundColor(.green).fontWeight(.bold).opacity(0.6)
-                    Text("\(Double(Global.TotalRecovered)*100/Double(Global.TotalConfirmed), specifier: "%.2f")%")
-                }
-                HStack {
-                    Text("DECEASED").foregroundColor(.red).fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-                    Text("\(Global.TotalDeaths)")
-                    Text("↑ \(Global.NewDeaths)").foregroundColor(.red).fontWeight(.medium)
-                }
-                HStack {
-                    Text("FATALITY RATE").foregroundColor(.red).fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/).opacity(0.6)
-                    Text("\(Double(Global.TotalDeaths)*100/Double(Global.TotalConfirmed), specifier: "%.2f")%")
-                }
-            }
-            }
-            .listStyle(InsetGroupedListStyle())
-            .pullToRefresh(isShowing: $isShowing) {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    self.isShowing = false
-                }
-            }
-            .navigationTitle("🌍 Global Summary")
+            GlobalSummary(Global: Global)
             }
         .onAppear(perform: loadGlobalData)
         .tabItem {
@@ -219,12 +181,12 @@ struct ContentView: View {
                                                 .background(Color.black)
                                                 .cornerRadius(10)
                                                 .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
-                                            Text("News article headline - can be pretty long too - or mega long as you like").font(.title)
+                                            Text("News article headline - can be pretty long too - or mega long as you like").font(.headline)
                                                 .padding(.top, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
                                             Spacer()
                                         }
                                         Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.").padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
-                                    }.background(Color.red).cornerRadius(10).padding(.leading, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/).padding(.trailing, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                                    }.background(Color.red).cornerRadius(10).padding(.leading, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/).padding(.trailing, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/).padding(.top, 5)
                                 }
                             }
                     }.navigationTitle("📰 News Feed")
@@ -333,14 +295,11 @@ struct ContentView: View {
                 List{
                     Section{
                         Toggle(isOn: $enableCustom) {
-                                Text("Enable customized tab")
+                                Text("Enable custom tab")
                             }
-                    }
-                    
                     if enableCustom {
-                        Section(header: Text("NAME YOUR CUSTOM TAB:")){
                         TextField("Custom tab name", text: $customTab)
-                        Picker("Pick custom tab icon", selection: $customTabIcon){
+                        Picker("Custom tab icon", selection: $customTabIcon){
                                 ForEach(0..<iconOptions.count){optionNumber in
                                     HStack {
                                         Text(iconOptions[optionNumber]).padding(.trailing, 10)
@@ -349,20 +308,20 @@ struct ContentView: View {
                                 }
                             }
                         }
-                }
+                    }
                     
                     Section{
                         Toggle(isOn: $enableNews) {
-                                Text("Enable news feed")
+                                Text("Enable News feed")
                             }
                     }
                     
                     Section(header: Text("COUNTRIES")){
                         Toggle(isOn: $countryDetails) {
-                                Text("Detailed list view")
+                                Text("Expanded list view")
                             }
                         Toggle(isOn: $countryDetailsTop10) {
-                                Text("Detailed list view for top 10 countries")
+                                Text("Expanded view for top 10")
                             }
                     }
                     
@@ -513,5 +472,52 @@ struct StateDetail: View{
                 }
             }.navigationTitle("\(state.state)")
             }}.listStyle(InsetGroupedListStyle())
+    }
+}
+
+struct GlobalSummary: View {
+    var Global: Result
+    @State private var isShowing = false
+    
+    var body: some View {
+        List{
+            Section(header: Text("Overview")){
+                HStack {
+                    Text("CONFIRMED").foregroundColor(.orange).fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                    Text("\(Global.TotalConfirmed)")
+                    Text("↑ \(Global.NewConfirmed)").foregroundColor(.orange).fontWeight(.medium)
+                }
+                HStack {
+                    Text("ACTIVE").foregroundColor(.blue).fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                    Text("\(Global.TotalConfirmed - Global.TotalRecovered)")
+                    Text("↑ \(Global.NewConfirmed - Global.NewRecovered)").foregroundColor(.blue).fontWeight(.medium)
+                }
+                HStack {
+                    Text("RECOVERED").foregroundColor(.green).fontWeight(.bold)
+                    Text("\(Global.TotalRecovered)")
+                    Text("↑ \(Global.NewRecovered)").foregroundColor(.green).fontWeight(.medium)
+                }
+                HStack {
+                    Text("RECOVERY RATE").foregroundColor(.green).fontWeight(.bold).opacity(0.6)
+                    Text("\(Double(Global.TotalRecovered)*100/Double(Global.TotalConfirmed), specifier: "%.2f")%")
+                }
+                HStack {
+                    Text("DECEASED").foregroundColor(.red).fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                    Text("\(Global.TotalDeaths)")
+                    Text("↑ \(Global.NewDeaths)").foregroundColor(.red).fontWeight(.medium)
+                }
+                HStack {
+                    Text("FATALITY RATE").foregroundColor(.red).fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/).opacity(0.6)
+                    Text("\(Double(Global.TotalDeaths)*100/Double(Global.TotalConfirmed), specifier: "%.2f")%")
+                }
+            }
+        }
+        .listStyle(InsetGroupedListStyle())
+        .pullToRefresh(isShowing: $isShowing) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.isShowing = false
+            }
+        }
+        .navigationTitle("🌍 Global Summary")
     }
 }
