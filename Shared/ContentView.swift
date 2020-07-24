@@ -68,7 +68,7 @@ struct ContentView: View {
     @State private var enableCustom: Bool = false
     @State private var enableNews: Bool = true
     @State var customTabIcon: Int = 0
-    @State var countryDetails: Bool = false
+    @State var countryDetails: Bool = true
     @State var countryDetailsTop10: Bool = true
     @State var stateDetails: Bool = true
     
@@ -112,7 +112,9 @@ struct ContentView: View {
                     // we have good data – go back to the main thread
                     DispatchQueue.main.async {
                         // update our UI
-                        self.Global = decodedResponse.Global
+                        self.Global.NewConfirmed = decodedResponse.Global.NewConfirmed
+                        self.Global.NewRecovered = decodedResponse.Global.NewRecovered
+                        self.Global.NewDeaths = decodedResponse.Global.NewConfirmed
                     }
                     // everything is good, so we can exit
                     
@@ -158,87 +160,75 @@ struct ContentView: View {
             
         NavigationView{
             List{
+            Section(header: Text("Overview")){
                 HStack {
-                    Spacer()
-                    VStack {
-                        HStack {
-                            Text("Confirmed").font(.largeTitle).fontWeight(.bold)
-                            Text("↑\(Global.NewConfirmed)")
-                        }
-                        Text("\(Global.TotalConfirmed)").font(.title)
-                    }
-                    Spacer()
+                    Text("CONFIRMED").foregroundColor(.orange).fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                    Text("\(Global.TotalConfirmed)")
+                    Text("↑ \(Global.NewConfirmed)").foregroundColor(.orange).fontWeight(.medium)
                 }
-                .padding(.vertical).background(Color.orange).cornerRadius(15).padding(.horizontal, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
                 HStack {
-                    Spacer()
-                    VStack {
-                        HStack {
-                            Text("Active").font(.largeTitle).fontWeight(.bold)
-                            Text("↑\(Global.NewConfirmed - Global.NewRecovered)")
-                        }
-                        Text("\(Global.TotalConfirmed - Global.TotalDeaths - Global.TotalRecovered)").font(.title)
-                    }
-                    Spacer()
+                    Text("ACTIVE").foregroundColor(.blue).fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                    Text("\(Global.TotalConfirmed - Global.TotalRecovered)")
+                    Text("↑ \(Global.NewConfirmed - Global.NewRecovered)").foregroundColor(.blue).fontWeight(.medium)
                 }
-                .padding(.vertical).background(Color.blue).cornerRadius(15).padding(.horizontal, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
                 HStack {
-                    Spacer()
-                    VStack {
-                        HStack {
-                            Text("Recovered").font(.largeTitle).fontWeight(.bold)
-                            Text("↑\(Global.NewRecovered)")
-                        }
-                        Global.TotalRecovered == 0 ? Text(" N/A").font(.title) : Text(" \(Global.TotalRecovered)").font(.title)
-                        
-                    }
-                    Spacer()
-                }.padding(.vertical).background(Color.green).cornerRadius(15).padding(.horizontal, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
-                HStack{
-                    Spacer()
-                    VStack {
-                        Text("Recovery Rate:" ).fontWeight(.bold).font(.title)
-                        Text("\((Double(Global.TotalRecovered) / Double(Global.TotalConfirmed) * 100), specifier: "%.2f")%").font(.title2)
-                    }
-                    Spacer()
-                }.padding(.vertical).background(Color.green.opacity(0.9)).cornerRadius(15).padding(.horizontal, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                    Text("RECOVERED").foregroundColor(.green).fontWeight(.bold)
+                    Text("\(Global.TotalRecovered)")
+                    Text("↑ \(Global.NewRecovered)").foregroundColor(.green).fontWeight(.medium)
+                }
                 HStack {
-                    Spacer()
-                    VStack {
-                        HStack {
-                            Text("Deceased").font(.largeTitle).fontWeight(.bold)
-                            Text("↑\(Global.NewDeaths)")
-                        }
-                        Text("\(Global.TotalDeaths)").font(.title)
-                    }
-                    Spacer()
-                }.padding(.vertical).background(Color.red).cornerRadius(15).padding(.horizontal, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
-                HStack{
-                    Spacer()
-                    VStack {
-                        Text("Fatality Rate:" ).fontWeight(.bold).font(.title)
-                        Text("\((Double(Global.TotalDeaths) / Double(Global.TotalConfirmed) * 100), specifier: "%.2f")%").font(.title2)
-                    }
-                    Spacer()
-                }.padding(.vertical).background(Color.red.opacity(0.9)).cornerRadius(15).padding(.horizontal, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                    Text("RECOVERY RATE").foregroundColor(.green).fontWeight(.bold).opacity(0.6)
+                    Text("\(Double(Global.TotalRecovered)*100/Double(Global.TotalConfirmed), specifier: "%.2f")%")
+                }
+                HStack {
+                    Text("DECEASED").foregroundColor(.red).fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                    Text("\(Global.TotalDeaths)")
+                    Text("↑ \(Global.NewDeaths)").foregroundColor(.red).fontWeight(.medium)
+                }
+                HStack {
+                    Text("FATALITY RATE").foregroundColor(.red).fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/).opacity(0.6)
+                    Text("\(Double(Global.TotalDeaths)*100/Double(Global.TotalConfirmed), specifier: "%.2f")%")
+                }
             }
+            }
+            .listStyle(InsetGroupedListStyle())
             .pullToRefresh(isShowing: $isShowing) {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     self.isShowing = false
                 }
             }
-            .onAppear(perform: loadGlobalData)
             .navigationTitle("🌍 Global Summary")
-            }.tabItem {
+            }
+        .onAppear(perform: loadGlobalData)
+        .tabItem {
                 Image(systemName: "globe")
                 Text("Global")
             }
         
             
             if enableNews {
-            VStack{
-                Text("Hi, this is your news feed")
-            }
+                NavigationView{
+                    ScrollView {
+                            LazyVGrid(columns: [GridItem(.flexible())], spacing: 20) {
+                                ForEach(0..<9999){_ in
+                                    VStack {
+                                        HStack {
+                                            Image(systemName: "newspaper")
+                                                .font(.system(size: 30))
+                                                .frame(width: 50, height: 50)
+                                                .background(Color.black)
+                                                .cornerRadius(10)
+                                                .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                                            Text("News article headline - can be pretty long too - or mega long as you like").font(.title)
+                                                .padding(.top, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                                            Spacer()
+                                        }
+                                        Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.").padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                                    }.background(Color.red).cornerRadius(10).padding(.leading, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/).padding(.trailing, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                                }
+                            }
+                    }.navigationTitle("📰 News Feed")
+                }
             .pullToRefresh(isShowing: $isShowing) {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     self.isShowing = false
@@ -287,9 +277,17 @@ struct ContentView: View {
                             Text("↑ \(IndiaDetails.NewRecovered)").foregroundColor(.green).fontWeight(.medium)
                         }
                         HStack {
+                            Text("RECOVERY RATE").foregroundColor(.green).fontWeight(.bold).opacity(0.6)
+                            Text("\(Double(IndiaDetails.TotalRecovered)*100/Double(IndiaDetails.TotalConfirmed), specifier: "%.2f")%")
+                        }
+                        HStack {
                             Text("DECEASED").foregroundColor(.red).fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                             Text("\(IndiaDetails.TotalDeaths)")
                             Text("↑ \(IndiaDetails.NewDeaths)").foregroundColor(.red).fontWeight(.medium)
+                        }
+                        HStack {
+                            Text("FATALITY RATE").foregroundColor(.red).fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/).opacity(0.6)
+                            Text("\(Double(IndiaDetails.TotalDeaths)*100/Double(IndiaDetails.TotalConfirmed), specifier: "%.2f")%")
                         }
                     }
                         Section(header: Text("Statewise distribution")){
@@ -376,7 +374,7 @@ struct ContentView: View {
 
                 }.listStyle(InsetGroupedListStyle())
                 .padding(.top, 20)
-                .navigationTitle("Settings")
+                .navigationTitle("⚙️ Settings")
             }
             .tabItem {
                 Image(systemName: "gear")

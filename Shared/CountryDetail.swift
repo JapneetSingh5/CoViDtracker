@@ -13,72 +13,39 @@ struct CountryDetail: View {
     @State private var isShowing = false
     
     var body: some View {
-            
-            List {
-                HStack {
-                    Spacer()
-                    VStack {
-                        HStack {
-                            Text("Confirmed").font(.largeTitle).fontWeight(.bold)
-                            Text("↑\(country.NewConfirmed)")
-                        }
-                        Text("\(country.TotalConfirmed)").font(.title)
-                    }
-                    Spacer()
-                }
-                .padding(.vertical).background(Color.orange).cornerRadius(15).padding(.horizontal, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
-                HStack {
-                    Spacer()
-                    VStack {
-                        HStack {
-                            Text("Active").font(.largeTitle).fontWeight(.bold)
-                            Text("↑\(country.NewConfirmed - country.NewRecovered)")
-                        }
-                        Text("\(country.TotalConfirmed - country.TotalDeaths - country.TotalRecovered)").font(.title)
-                    }
-                    Spacer()
-                }
-                .padding(.vertical).background(Color.blue).cornerRadius(15).padding(.horizontal, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
-                HStack {
-                    Spacer()
-                    VStack {
-                        HStack {
-                            Text("Recovered").font(.largeTitle).fontWeight(.bold)
-                            Text("↑\(country.NewRecovered)")
-                        }
-                        country.TotalRecovered == 0 ? Text(" N/A").font(.title) : Text(" \(country.TotalRecovered)").font(.title)
-                        
-                    }
-                    Spacer()
-                }.padding(.vertical).background(Color.green).cornerRadius(15).padding(.horizontal, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
-                HStack{
-                    Spacer()
-                    VStack {
-                        Text("Recovery Rate:" ).fontWeight(.bold).font(.title)
-                        Text("\((Double(country.TotalRecovered) / Double(country.TotalConfirmed) * 100), specifier: "%.2f")%").font(.title2)
-                    }
-                    Spacer()
-                }.padding(.vertical).background(Color.green.opacity(0.9)).cornerRadius(15).padding(.horizontal, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
-                HStack {
-                    Spacer()
-                    VStack {
-                        HStack {
-                            Text("Deceased").font(.largeTitle).fontWeight(.bold)
-                            Text("↑\(country.NewDeaths)")
-                        }
-                        Text("\(country.TotalDeaths)").font(.title)
-                    }
-                    Spacer()
-                }.padding(.vertical).background(Color.red).cornerRadius(15).padding(.horizontal, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
-                HStack{
-                    Spacer()
-                    VStack {
-                        Text("Fatality Rate:" ).fontWeight(.bold).font(.title)
-                        Text("\((Double(country.TotalDeaths) / Double(country.TotalConfirmed) * 100), specifier: "%.2f")%").font(.title2)
-                    }
-                    Spacer()
-                }.padding(.vertical).background(Color.red.opacity(0.9)).cornerRadius(15).padding(.horizontal, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+        
+        List{
+        Section(header: Text("Overview")){
+            HStack {
+                Text("CONFIRMED").foregroundColor(.orange).fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                Text("\(country.TotalConfirmed)")
+                Text("↑ \(country.NewConfirmed)").foregroundColor(.orange).fontWeight(.medium)
             }
+            HStack {
+                Text("ACTIVE").foregroundColor(.blue).fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                Text("\(country.TotalConfirmed - country.TotalRecovered)")
+                Text("↑ \(country.NewConfirmed - country.NewRecovered)").foregroundColor(.blue).fontWeight(.medium)
+            }
+            HStack {
+                Text("RECOVERED").foregroundColor(.green).fontWeight(.bold)
+                Text("\(country.TotalRecovered)")
+                Text("↑ \(country.NewRecovered)").foregroundColor(.green).fontWeight(.medium)
+            }
+            HStack {
+                Text("RECOVERY RATE").foregroundColor(.green).fontWeight(.bold).opacity(0.6)
+                Text("\(Double(country.TotalRecovered)*100/Double(country.TotalConfirmed), specifier: "%.2f")%")
+            }
+            HStack {
+                Text("DECEASED").foregroundColor(.red).fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                Text("\(country.TotalDeaths)")
+                Text("↑ \(country.NewDeaths)").foregroundColor(.red).fontWeight(.medium)
+            }
+            HStack {
+                Text("FATALITY RATE").foregroundColor(.red).fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/).opacity(0.6)
+                Text("\(Double(country.TotalDeaths)*100/Double(country.TotalConfirmed), specifier: "%.2f")%")
+            }
+        }
+        }.listStyle(InsetGroupedListStyle())
             .pullToRefresh(isShowing: $isShowing) {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     self.isShowing = false
