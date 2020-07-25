@@ -5,6 +5,8 @@
 //  Created by Japneet Singh on /266/20.
 //
 
+//17d58d7030ae4a9aadadb60803a2a01a
+
 import SwiftUI
 import SwiftUIRefresh
 
@@ -19,6 +21,25 @@ struct GlobalResponse: Codable {
 struct IndiaResponse: Codable {
     var India: [IndiaStates]
 }
+
+struct NewsResponse: Codable {
+    var articles: [Article]
+}
+
+struct NewsSource: Codable{
+    var name: String
+}
+
+struct Article: Codable {
+    var author: String
+    var title: String
+    var description: String
+    var url: String
+    var urlToImage: String
+    var source: NewsSource
+    
+}
+
 
 struct Result: Codable {
     var Country : String
@@ -59,6 +80,7 @@ struct IndiaStates: Codable {
 }
 
 struct ContentView: View {
+    @State var articles = [Article]()
     @State var Countries = [Result]()
     @State var Global : Result
     @State var India = [IndiaStates]()
@@ -152,6 +174,30 @@ struct ContentView: View {
 
     }
     
+    func loadNews() {
+        guard let url = URL(string: "https://newsapi.org/v2/everything?q=covid&from=2020-06-25&sortBy=publishedAt&sources=the-verge,the-times-of-india,cnn,the-wall-street-journal&apiKey=17d58d7030ae4a9aadadb60803a2a01a") else {
+            print("Invalid URL")
+            return
+        }
+        let request = URLRequest(url: url)
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let data = data {
+                if let decodedResponse = try? JSONDecoder().decode(NewsResponse.self, from: data) {
+                    // we have good data – go back to the main thread
+                    DispatchQueue.main.async {
+                        // update our UI
+                        self.articles = decodedResponse.articles
+                    }
+
+                    // everything is good, so we can exit
+                    return
+                }
+            }
+            print("Fetch failed: \(error?.localizedDescription ?? "Couldn't load news")")
+        }.resume()
+
+    }
+    
 
     
     var body: some View {
@@ -172,24 +218,31 @@ struct ContentView: View {
                 NavigationView{
                     ScrollView {
                             LazyVGrid(columns: [GridItem(.flexible())], spacing: 20) {
-                                ForEach(0..<9999){_ in
+                                ForEach(articles, id:\.title){article in
                                     VStack {
                                         HStack {
                                             Image(systemName: "newspaper")
                                                 .font(.system(size: 30))
                                                 .frame(width: 50, height: 50)
-                                                .background(Color.black)
                                                 .cornerRadius(10)
-                                                .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
-                                            Text("News article headline - can be pretty long too - or mega long as you like").font(.headline)
-                                                .padding(.top, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                                            VStack(spacing:0){
+                                                Text(article.title).font(.headline)
+                                                    .padding(.top, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                                                Text("by \(article.author) for \(article.source.name)").font(.subheadline).foregroundColor(.secondary)
+                                                    .padding(.top, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                                            }
                                             Spacer()
                                         }
-                                        Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.").padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
-                                    }.background(Color.red).cornerRadius(10).padding(.leading, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/).padding(.trailing, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/).padding(.top, 5)
+                                        Text(article.description).padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                                        Link(destination: URL(string: article.url)!) {
+                                            Text("Read more at \(article.source.name)")
+                                        }
+                                    }.padding(.leading, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/).padding(.trailing, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/).padding(.top, 5)
                                 }
                             }
                     }.navigationTitle("📰 News Feed")
+                }.onAppear {
+                    loadNews()
                 }
             .pullToRefresh(isShowing: $isShowing) {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
