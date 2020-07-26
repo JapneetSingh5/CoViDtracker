@@ -21,6 +21,7 @@
 		3F222AF624A539D6005AA22C /* CountryDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F222AF524A539D6005AA22C /* CountryDetail.swift */; };
 		3F222AF724A539D6005AA22C /* CountryDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F222AF524A539D6005AA22C /* CountryDetail.swift */; };
 		3F526DFE24C791FD002DD13C /* SwiftUIRefresh in Frameworks */ = {isa = PBXBuildFile; productRef = 3F526DFD24C791FD002DD13C /* SwiftUIRefresh */; };
+		3F5E602E24CD0E66005D8DFC /* KingfisherSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 3F5E602D24CD0E66005D8DFC /* KingfisherSwiftUI */; };
 		3FAAEC1224CB4C8F00131271 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FAAEC1124CB4C8F00131271 /* WidgetKit.framework */; };
 		3FAAEC1424CB4C8F00131271 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FAAEC1324CB4C8F00131271 /* SwiftUI.framework */; };
 		3FAAEC1724CB4C8F00131271 /* CoViDtracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FAAEC1624CB4C8F00131271 /* CoViDtracker.swift */; };
@@ -99,6 +100,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F5E602E24CD0E66005D8DFC /* KingfisherSwiftUI in Frameworks */,
 				3F526DFE24C791FD002DD13C /* SwiftUIRefresh in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -251,6 +253,7 @@
 			name = iOS;
 			packageProductDependencies = (
 				3F526DFD24C791FD002DD13C /* SwiftUIRefresh */,
+				3F5E602D24CD0E66005D8DFC /* KingfisherSwiftUI */,
 			);
 			productName = iOS;
 			productReference = 3F222ABC24A52A56005AA22C /* CoViDtracker.app */;
@@ -365,6 +368,7 @@
 			mainGroup = 3F222AAF24A52A55005AA22C;
 			packageReferences = (
 				3F526DFC24C791FD002DD13C /* XCRemoteSwiftPackageReference "SwiftUIRefresh" */,
+				3F5E602C24CD0E66005D8DFC /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 3F222ABD24A52A56005AA22C /* Products */;
 			projectDirPath = "";
@@ -913,6 +917,14 @@
 				minimumVersion = 0.0.3;
 			};
 		};
+		3F5E602C24CD0E66005D8DFC /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.8.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -920,6 +932,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3F526DFC24C791FD002DD13C /* XCRemoteSwiftPackageReference "SwiftUIRefresh" */;
 			productName = SwiftUIRefresh;
+		};
+		3F5E602D24CD0E66005D8DFC /* KingfisherSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3F5E602C24CD0E66005D8DFC /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = KingfisherSwiftUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

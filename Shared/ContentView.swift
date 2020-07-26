@@ -9,6 +9,7 @@
 
 import SwiftUI
 import SwiftUIRefresh
+import KingfisherSwiftUI
 
 struct CountryResponse: Codable {
     var Countries: [Result]
@@ -175,7 +176,7 @@ struct ContentView: View {
     }
     
     func loadNews() {
-        guard let url = URL(string: "https://newsapi.org/v2/everything?q=covid&from=2020-06-25&sortBy=publishedAt&sources=the-verge,the-times-of-india,cnn,the-wall-street-journal&apiKey=17d58d7030ae4a9aadadb60803a2a01a") else {
+        guard let url = URL(string: "https://newsapi.org/v2/everything?q=covid&from=2020-06-25&sortBy=publishedAt&sources=the-verge,the-times-of-india,cnn,the-wall-street-journal&language=en&apiKey=17d58d7030ae4a9aadadb60803a2a01a") else {
             print("Invalid URL")
             return
         }
@@ -217,14 +218,42 @@ struct ContentView: View {
             if enableNews {
                 NavigationView{
                     ScrollView {
-                            LazyVGrid(columns: [GridItem(.flexible())], spacing: 20) {
+                            LazyVGrid(columns: [GridItem(.adaptive(minimum: 300))], spacing: 20) {
+                                ForEach(articles, id:\.title){article in
+                                    VStack {
+                                        VStack {
+                                            KFImage(URL(string: article.urlToImage)!)
+                                                .resizable().cornerRadius(10)
+                                                .aspectRatio(contentMode: .fill)
+                                                .overlay(
+                                                    HStack {
+                                                        Spacer()
+                                                        VStack(spacing:0){
+                                                            Text(article.title).font(.headline).foregroundColor(.white)
+                                                    Text("by \(article.author) for \(article.source.name)").font(.subheadline).foregroundColor(.gray)
+                                                        }.padding(.leading, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/).padding(.trailing, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/).padding(.top, 5).padding(.bottom, 5)
+                                                        Spacer()
+                                                    }.background(Color.black.opacity(0.8)), alignment: .bottom)
+                                        }
+                                        Text(article.description).padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                                        Link(destination: URL(string: article.url)!) {
+                                            Text("Read more at \(article.source.name)").font(.caption)
+                                        }
+                                        .padding(.leading, 0.0)
+                                        
+                                    }.padding(.leading, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/).padding(.trailing, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/).padding(.top, 5)
+                                }
+
+                            }
+                    }.navigationTitle("📰 News Feed")
+
+                    
+                    ScrollView {
+                            LazyVGrid(columns: [GridItem(.adaptive(minimum: 300))], spacing: 20) {
                                 ForEach(articles, id:\.title){article in
                                     VStack {
                                         HStack {
-                                            Image(systemName: "newspaper")
-                                                .font(.system(size: 30))
-                                                .frame(width: 50, height: 50)
-                                                .cornerRadius(10)
+                                            KFImage(URL(string: article.urlToImage)!)
                                             VStack(spacing:0){
                                                 Text(article.title).font(.headline)
                                                     .padding(.top, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
@@ -240,7 +269,7 @@ struct ContentView: View {
                                     }.padding(.leading, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/).padding(.trailing, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/).padding(.top, 5)
                                 }
                             }
-                    }.navigationTitle("📰 News Feed")
+                    }
                 }.onAppear {
                     loadNews()
                 }
