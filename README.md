@@ -1,6 +1,6 @@
 # CoViDtracker
 An app made using SwiftUI to track global COVID19 caseload and statistics. \
-For India, State and District wise data is also available.\
+For India, State and District wise data is also available. \
 <table>
     <tr>
     <td>Global Summary</td>
