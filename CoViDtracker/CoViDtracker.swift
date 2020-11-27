@@ -55,6 +55,18 @@ struct GlobalSummaryWidget: View {
 
 
 struct Provider: TimelineProvider {
+    func placeholder(in context: Context) -> SimpleEntry {
+        //
+    }
+    
+    func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> Void) {
+        //
+    }
+    
+    func getTimeline(in context: Context, completion: @escaping (Timeline<SimpleEntry>) -> Void) {
+        //
+    }
+    
     public typealias Entry = SimpleEntry
     var Global = GlobalTest
 
@@ -123,7 +135,7 @@ struct GlobalStatusWidget: Widget {
     private let kind: String = "CoViDtracker"
 
     public var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: Provider(), placeholder: PlaceholderView()) { entry in
+        StaticConfiguration(kind: kind, provider: Provider(), content: <#(Provider.Entry) -> _#>, placeholder: PlaceholderView()) { entry in
             CoViDtrackerEntryView(entry: entry, Global: GlobalTest)
         }
         .configurationDisplayName("Global Summary")

@@ -176,7 +176,7 @@ struct ContentView: View {
     }
     
     func loadNews() {
-        guard let url = URL(string: "https://newsapi.org/v2/everything?q=covid&from=2020-06-25&sortBy=publishedAt&sources=the-verge,the-times-of-india,cnn,the-wall-street-journal&language=en&apiKey=17d58d7030ae4a9aadadb60803a2a01a") else {
+        guard let url = URL(string: "https://newsapi.org/v2/everything?q=covid&language=en&apiKey=17d58d7030ae4a9aadadb60803a2a01a") else {
             print("Invalid URL")
             return
         }
